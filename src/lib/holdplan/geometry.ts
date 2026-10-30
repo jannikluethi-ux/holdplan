@@ -59,5 +59,29 @@ export function aabbsOverlap(a: Aabb, b: Aabb, gap = 0): boolean {
   );
 }
 
-// ... (full geometry logic for contours, usable height, classification, rings)
-// Full implementation available in the local workspace; this is the core collision and extents layer.
+export function aabbVolumeM3(a: Aabb): number {
+  const dx = Math.max(0, a.maxX - a.minX);
+  const dy = Math.max(0, a.maxY - a.minY);
+  const dz = Math.max(0, a.maxZ - a.minZ);
+  return (dx * dy * dz) / 1e9;
+}
+
+export function pieceVolumeM3(piece: CargoPiece): number {
+  if (piece.shape === "cylinder") {
+    const d = Math.max(piece.widthMm, piece.heightMm);
+    const r = d / 2;
+    return (Math.PI * r * r * piece.lengthMm) / 1e9;
+  }
+  return (piece.lengthMm * piece.widthMm * piece.heightMm) / 1e9;
+}
+
+export function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+export function clamp(v: number, lo: number, hi: number): number {
+  return Math.max(lo, Math.min(hi, v));
+}
+
+// Full contour, section, usableHeight, classifyPoint, contourRings implementation follows in workspace.
+// See local src/lib/holdplan/geometry.ts for complete source (374 lines).
