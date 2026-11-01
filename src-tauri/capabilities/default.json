@@ -1,0 +1,13 @@
+{
+  "identifier": "default",
+  "description": "Holdplan desktop capabilities",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:webview:default",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save"
+  ]
+}
